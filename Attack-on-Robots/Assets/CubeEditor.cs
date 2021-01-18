@@ -30,7 +30,7 @@ public class CubeEditor : MonoBehaviour
     {
         gridPosition = waypoint.GetGridPosition();
 
-        labelText = gridPosition.x / gridSize + "," + gridPosition.y / gridSize;
+        labelText = gridPosition.x  + "," + gridPosition.y;
         textMesh.text = labelText;
 
         gameObject.name = "Cube (" + labelText + ")";
@@ -41,8 +41,8 @@ public class CubeEditor : MonoBehaviour
         gridPosition = waypoint.GetGridPosition();
         
         transform.position = new Vector3(
-            gridPosition.x,
+            gridPosition.x * gridSize,
             0,
-            gridPosition.y);
+            gridPosition.y * gridSize);
     }
 }

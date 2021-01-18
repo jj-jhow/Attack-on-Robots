@@ -10,24 +10,21 @@ public class Waypoint : MonoBehaviour
     { 
         return gridSize;
     }
+    public Waypoint exploredFrom { get; set; }
 
     public Vector2Int GetGridPosition()
     {
         return new Vector2Int(
-            Mathf.RoundToInt(transform.position.x / gridSize) * gridSize,
-            Mathf.RoundToInt(transform.position.z / gridSize) * gridSize
+            Mathf.RoundToInt(transform.position.x / gridSize),
+            Mathf.RoundToInt(transform.position.z / gridSize)
             );
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetTopColor( Color color)
     {
-        
-    }
+        MeshRenderer topMeshRenderer =  transform.Find("Top").GetComponent<MeshRenderer>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+       
+        topMeshRenderer.material.color = color;
     }
 }
