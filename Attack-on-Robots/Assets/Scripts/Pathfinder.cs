@@ -25,10 +25,13 @@ public class Pathfinder : MonoBehaviour
 
     public List<Waypoint> GetPath()
     {
-        LoadBlocks();
-        ColorStartAndEnd();
-        SearchPath();
-        CreatePath();
+        if (path.Count == 0)
+        {
+            LoadBlocks();
+            ColorStartAndEnd();
+            SearchPath();
+            CreatePath();
+        }
         return path;
     }
 
@@ -79,11 +82,6 @@ public class Pathfinder : MonoBehaviour
         }
 
         path.Reverse();
-
-        foreach (var item in path) // Todo: Remove
-        {
-            print(item);
-        }
     }
 
     private void ExplorNeighbors()
