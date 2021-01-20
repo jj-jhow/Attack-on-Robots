@@ -6,21 +6,37 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     [SerializeField] Transform objectToPan;
-    [SerializeField] Transform targetEnemy;
     [SerializeField] float attackRange = 30f;
     [SerializeField] ParticleSystem projectileParticle;
-    bool isShooting = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Transform targetEnemy;
 
     // Update is called once per frame
     void Update()
     {
+        SetTarget();
         SearchAndDestroy();
+    }
+
+    private void SetTarget()
+    {
+        EnemyDamage[] enemies = FindObjectsOfType<EnemyDamage>();
+        
+        if (enemies.Length != 0)
+        {
+            Transform closestEnemy = enemies[0].transform;
+
+            foreach (EnemyDamage enemy in enemies)
+            {
+                if (Vector3.Distance(enemy.transform.position, transform.position) - Vector3.Distance(closestEnemy.position, transform.position) < Mathf.Epsilon)
+	            {
+                    closestEnemy = enemy.transform;
+	            }
+
+            }
+
+            targetEnemy = closestEnemy;
+        }
     }
 
     private void SearchAndDestroy()
