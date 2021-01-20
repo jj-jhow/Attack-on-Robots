@@ -28,7 +28,6 @@ public class Pathfinder : MonoBehaviour
         if (path.Count == 0)
         {
             LoadBlocks();
-            ColorStartAndEnd();
             SearchPath();
             CreatePath();
         }
@@ -71,14 +70,12 @@ public class Pathfinder : MonoBehaviour
         while (breadcrumb.exploredFrom || breadcrumb == startWaypoint)
         {
             path.Add(breadcrumb);
+            breadcrumb.isPlaceable = false;
             
             if (!breadcrumb.exploredFrom)
                 break;
             
             breadcrumb = breadcrumb.exploredFrom;
-
-            if (breadcrumb != startWaypoint && breadcrumb != endWaypoint)
-                breadcrumb.SetTopColor(Color.cyan);
         }
 
         path.Reverse();
@@ -97,19 +94,13 @@ public class Pathfinder : MonoBehaviour
             {
                 neighbor = grid[neighborPosition];
 
-                if (!dequeuedList.Contains(neighbor) && !queue.Contains(neighbor))
+                if (!dequeuedList.Contains(neighbor) && !queue.Contains(neighbor) && neighbor.isExplorable)
                 {
                     queue.Enqueue(neighbor);
                     neighbor.exploredFrom = searchCenter;
                 }
             }
         }
-    }
-
-    private void ColorStartAndEnd() // Todo: change to SetStartAndEndPoint
-    {
-        startWaypoint.SetTopColor(Color.blue);
-        endWaypoint.SetTopColor(Color.red);
     }
 
     private void LoadBlocks()

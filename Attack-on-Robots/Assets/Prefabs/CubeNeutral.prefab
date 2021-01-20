@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 484725627900206012}
-  - component: {fileID: -436592773615741070}
-  - component: {fileID: 6059315733675969297}
+  - component: {fileID: 825717066825994450}
+  - component: {fileID: 5708980537242207534}
   m_Layer: 0
   m_Name: CubeNeutral
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-436592773615741070
+--- !u!114 &825717066825994450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cf31a5746772b42b82fcb1209cc2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6059315733675969297
+--- !u!114 &5708980537242207534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,6 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25981684863f60242ab0c08c6ece4f9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isExplored: 0
+  isPlaceable: 0
+  towerPrefab: {fileID: 6876370459835165637, guid: 51bed80b21b59554bb946e4506514af6, type: 3}
+  isExplorable: 0
 --- !u!1 &7312542920085919587
 GameObject:
   m_ObjectHideFlags: 0
