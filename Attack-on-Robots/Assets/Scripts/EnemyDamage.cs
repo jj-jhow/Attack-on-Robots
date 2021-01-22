@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDamage : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
     [SerializeField] ParticleSystem SelfDestructParticlePrefab;
+    [SerializeField] int enemyScoreValue = 1;
 
-    PlayerHealth playerHealth;
+
+    HealthAndScore playerHealth;
 
     private void Awake()
     {
-        playerHealth = FindObjectOfType<PlayerHealth>();
+        playerHealth = FindObjectOfType<HealthAndScore>();
     }
     private void OnParticleCollision(GameObject other)
     {
@@ -33,6 +36,7 @@ public class EnemyDamage : MonoBehaviour
         if (isDeath)
         {
             vfx = Instantiate(deathParticlePrefab, transform.Find("Body").position, Quaternion.identity);
+            playerHealth.IncreaseScore(enemyScoreValue);
         }
         else
         {
