@@ -35,7 +35,7 @@ public class Tower : MonoBehaviour
 
             }
 
-            targetEnemy = closestEnemy;
+            targetEnemy = closestEnemy.Find("Body");
         }
     }
 
