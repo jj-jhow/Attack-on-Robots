@@ -39,11 +39,6 @@ public class Pathfinder : MonoBehaviour
         waypoints = FindObjectsOfType<Waypoint>();
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void SearchPath()
     {
         queue.Enqueue(startWaypoint);

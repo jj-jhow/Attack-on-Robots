@@ -63,7 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb1d58043848e54890e727d07ed1cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 5
+  health: 10
+  damage: 2
   hitParticlePrefab: {fileID: 8949300568281624830}
   deathParticlePrefab: {fileID: 198537984209914932, guid: 1a51bfda454239a41afb7dee687c6ac0, type: 3}
   SelfDestructParticlePrefab: {fileID: 198537984209914932, guid: 02efb0200dd968045a1b6f031d24f50a, type: 3}
@@ -79,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9def568f627e7e745a66764e2425065c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 1
+  delayTime: 0.3
 --- !u!1 &1646541640735296
 GameObject:
   m_ObjectHideFlags: 0

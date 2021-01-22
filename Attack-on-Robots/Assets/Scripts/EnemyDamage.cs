@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    [SerializeField] int hitPoints = 10;
+    [SerializeField] int health = 10;
+    [SerializeField] int damage = 2;
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
     [SerializeField] ParticleSystem SelfDestructParticlePrefab;
 
+    PlayerHealth playerHealth;
+
+    private void Awake()
+    {
+        playerHealth = FindObjectOfType<PlayerHealth>();
+    }
     private void OnParticleCollision(GameObject other)
     {
         ProcessHit();
 
-        if (hitPoints < 1)
+        if (health < 1)
         {
             ProcessDeath(isDeath: true);
         }
@@ -22,6 +29,7 @@ public class EnemyDamage : MonoBehaviour
     public void ProcessDeath(bool isDeath)
     {
         ParticleSystem vfx;
+        
         if (isDeath)
         {
             vfx = Instantiate(deathParticlePrefab, transform.Find("Body").position, Quaternion.identity);
@@ -29,6 +37,7 @@ public class EnemyDamage : MonoBehaviour
         else
         {
             vfx = Instantiate(SelfDestructParticlePrefab, transform.Find("Body").position, Quaternion.identity);
+            playerHealth.DecreaseHealth(damage);
         }
         
         vfx.transform.parent = this.transform.parent.parent.Find("Vfx");
@@ -40,7 +49,7 @@ public class EnemyDamage : MonoBehaviour
 
     private void ProcessHit()
     {
-        hitPoints -= 1;
+        health -= 1;
         hitParticlePrefab.Play();
     }
 }

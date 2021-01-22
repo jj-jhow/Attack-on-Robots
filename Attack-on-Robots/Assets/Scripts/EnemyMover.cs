@@ -31,6 +31,4 @@ public class EnemyMover : MonoBehaviour
 
         enemyDamage.ProcessDeath(isDeath: false);
     }
-
-
 }
