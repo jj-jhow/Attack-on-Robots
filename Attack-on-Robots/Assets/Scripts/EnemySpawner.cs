@@ -8,7 +8,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float secondsBetweenSpawns = 4f;
     [SerializeField] EnemyMover enemyPrefab;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnEnemy());
@@ -18,14 +17,10 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            EnemyMover enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            enemy.transform.parent = this.transform;
+
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

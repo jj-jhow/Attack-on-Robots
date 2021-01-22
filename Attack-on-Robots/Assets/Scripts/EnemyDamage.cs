@@ -7,6 +7,7 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] int hitPoints = 10;
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
+    [SerializeField] ParticleSystem SelfDestructParticlePrefab;
 
     private void OnParticleCollision(GameObject other)
     {
@@ -14,15 +15,27 @@ public class EnemyDamage : MonoBehaviour
 
         if (hitPoints < 1)
         {
-            ProcessDeath();
+            ProcessDeath(isDeath: true);
         }
     }
 
-    private void ProcessDeath()
+    public void ProcessDeath(bool isDeath)
     {
-        var vfx = Instantiate(deathParticlePrefab, transform.Find("Body").position, Quaternion.identity);
+        ParticleSystem vfx;
+        if (isDeath)
+        {
+            vfx = Instantiate(deathParticlePrefab, transform.Find("Body").position, Quaternion.identity);
+        }
+        else
+        {
+            vfx = Instantiate(SelfDestructParticlePrefab, transform.Find("Body").position, Quaternion.identity);
+        }
+        
+        vfx.transform.parent = this.transform.parent.parent.Find("Vfx");
         vfx.Play();
+
         Destroy(gameObject);
+        Destroy(vfx.gameObject, vfx.main.duration);
     }
 
     private void ProcessHit()

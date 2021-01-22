@@ -7,10 +7,17 @@ public class EnemyMover : MonoBehaviour
 {
     [SerializeField] float delayTime = 1.0f;
 
-    // Start is called before the first frame update
+    EnemyDamage enemyDamage;
+    List<Waypoint> path;
+
+    private void Awake()
+    {
+        enemyDamage = FindObjectOfType<EnemyDamage>();
+        path = FindObjectOfType<Pathfinder>().GetPath();
+    }
+
     void Start()
     {
-        List<Waypoint> path = FindObjectOfType<Pathfinder>().GetPath();
         StartCoroutine(FollowPath(path));
     }
 
@@ -21,11 +28,9 @@ public class EnemyMover : MonoBehaviour
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(delayTime);
         }
+
+        enemyDamage.ProcessDeath(isDeath: false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
