@@ -7,17 +7,23 @@ public class EnemyDamage : MonoBehaviour
 {
     [SerializeField] int health = 10;
     [SerializeField] int damage = 2;
+    [SerializeField] int enemyScoreValue = 1;
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
     [SerializeField] ParticleSystem SelfDestructParticlePrefab;
-    [SerializeField] int enemyScoreValue = 1;
+    [SerializeField] AudioClip hitSFX;
+    [SerializeField] AudioClip deathSFX;
+    [SerializeField] AudioClip SelfDestructSFX;
 
-
+    Vector3 mainCameraPosition;
+    AudioSource audioSource;
     HealthAndScore playerHealth;
 
     private void Awake()
     {
         playerHealth = FindObjectOfType<HealthAndScore>();
+        audioSource = GetComponent<AudioSource>();
+        mainCameraPosition = Camera.main.transform.position;
     }
     private void OnParticleCollision(GameObject other)
     {
@@ -37,14 +43,16 @@ public class EnemyDamage : MonoBehaviour
         {
             vfx = Instantiate(deathParticlePrefab, transform.Find("Body").position, Quaternion.identity);
             playerHealth.IncreaseScore(enemyScoreValue);
+            AudioSource.PlayClipAtPoint(deathSFX, mainCameraPosition);
         }
         else
         {
             vfx = Instantiate(SelfDestructParticlePrefab, transform.Find("Body").position, Quaternion.identity);
             playerHealth.DecreaseHealth(damage);
+            AudioSource.PlayClipAtPoint(SelfDestructSFX, mainCameraPosition);
         }
-        
-        vfx.transform.parent = this.transform.parent.parent.Find("Vfx");
+
+        vfx.transform.parent = this.transform.parent.parent.Find("VFX");
         vfx.Play();
 
         Destroy(gameObject);
@@ -55,5 +63,6 @@ public class EnemyDamage : MonoBehaviour
     {
         health -= 1;
         hitParticlePrefab.Play();
+        audioSource.PlayOneShot(hitSFX);
     }
 }
